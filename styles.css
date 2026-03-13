@@ -152,7 +152,34 @@ h1, h2, h3, .logo, .count {
     font-size: 1.2rem;
     color: var(--text-secondary);
     max-width: 600px;
-    margin-bottom: 3rem;
+    margin-bottom: 1.8rem;
+}
+
+.author-card {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 50px;
+    padding: 0.55rem 1.4rem;
+    margin-bottom: 2rem;
+}
+
+.author-name {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.author-npm {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    background: rgba(255, 255, 255, 0.08);
+    padding: 0.2rem 0.7rem;
+    border-radius: 20px;
+    letter-spacing: 0.03em;
 }
 
 .scroll-btn {
