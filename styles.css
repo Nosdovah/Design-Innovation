@@ -390,6 +390,9 @@ h1, h2, h3, .logo, .count {
     padding: 1.5rem;
     color: var(--text-secondary);
     min-height: 200px;
+    text-align: justify;
+    hyphens: auto;
+    line-height: 1.75;
 }
 
 .tags {
