@@ -485,6 +485,19 @@ h3,
     line-height: 1.75;
 }
 
+/* Innovation product title highlight */
+.idea-title {
+    font-weight: 800;
+    background: linear-gradient(90deg, #ffbe32, #ff8c42);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-decoration: underline;
+    text-decoration-color: rgba(255, 190, 50, 0.5);
+    text-underline-offset: 3px;
+    font-style: normal;
+}
+
 /* Section label badges inside Innovation Resume */
 .resume-label {
     display: inline-block;
