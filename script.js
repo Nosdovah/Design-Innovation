@@ -1,11 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    // ─── Supabase Configuration ──────────────────────────────────────────
-    const SUPABASE_URL = 'https://dwzzypcvvlkmaqiczefm.supabase.co';
-    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR3enp5cGN2dmxrbWFxaWN6ZWZtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM3MTUwMTQsImV4cCI6MjA4OTI5MTAxNH0.kybZBCZcCR6e2f0w968LAmYPZgEGPrNZ16TajFUwaq4';
-    
-    // Initialize Supabase from the global 'supabase' object provided by the CDN
-    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    // ─── API Base URL ────────────────────────────────────────────────────
+    // For local dev this points to server.py. For production, set this to
+    // your deployed backend URL, e.g.: "https://your-api.railway.app"
+    const API_BASE = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+        ? ""        // Same origin — server.py handles both static + API
+        : "";       // 👉 Replace with your deployed backend URL when hosting
 
     // ─── Number Counter Animation ────────────────────────────────────────
     const counters = document.querySelectorAll('.count');
@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // ─── Comment System (Supabase) ───────────────────────────────────────
+    // ─── Comment System (Turso via server.py REST API) ───────────────────
 
     /**
      * Render a single comment item into a <li>
@@ -58,13 +58,12 @@ document.addEventListener("DOMContentLoaded", () => {
             <div class="comment-meta">
                 <span class="comment-author">🖥️ ${escapeHtml(c.hostname || 'unknown')}</span>
                 <span class="comment-ip">📡 ${escapeHtml(c.ip || 'unknown')}</span>
-                <span class="comment-time">${escapeHtml(c.timestamp_display || c.created_at)}</span>
+                <span class="comment-time">${escapeHtml(c.timestamp_display || c.created_at || '')}</span>
                 <button class="comment-delete" title="Hapus Komentar">✕</button>
             </div>
             <p class="comment-text">${escapeHtml(c.text)}</p>
         `;
 
-        // Wire up delete button
         li.querySelector('.comment-delete').addEventListener('click', () => {
             if (confirm('Hapus komentar ini?')) {
                 deleteComment(section, cardId, c.id);
@@ -90,19 +89,10 @@ document.addEventListener("DOMContentLoaded", () => {
      */
     async function loadComments(section, cardId) {
         const list = section.querySelector('.comment-list');
-        if (!supabaseClient) {
-            list.innerHTML = '<li class="comment-empty comment-error">⚠️ Konfigurasi Supabase belum lengkap di script.js</li>';
-            return;
-        }
-
         try {
-            const { data, error } = await supabaseClient
-                .from('comments')
-                .select('*')
-                .eq('card_id', cardId)
-                .order('created_at', { ascending: true });
-
-            if (error) throw error;
+            const res = await fetch(`${API_BASE}/api/comments?card=${encodeURIComponent(cardId)}`);
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            const data = await res.json();
 
             list.innerHTML = '';
             if (!data || data.length === 0) {
@@ -112,7 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         } catch (err) {
             console.error(err);
-            list.innerHTML = '<li class="comment-empty comment-error">⚠️ Gagal memuat komentar dari Supabase.</li>';
+            list.innerHTML = '<li class="comment-empty comment-error">⚠️ Gagal memuat komentar. Pastikan server.py aktif.</li>';
         }
     }
 
@@ -125,7 +115,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (!res.ok) throw new Error();
             const data = await res.json();
             return {
-                ip: data.ip || 'unknown',
+                ip:       data.ip       || 'unknown',
                 hostname: data.hostname || data.org || data.ip || 'unknown'
             };
         } catch {
@@ -137,45 +127,39 @@ document.addEventListener("DOMContentLoaded", () => {
      * Submit a comment for a card
      */
     async function submitComment(section, cardId) {
-        if (!supabaseClient) {
-            alert('Konfigurasi Supabase belum lengkap di script.js');
-            return;
-        }
-
         const textarea = section.querySelector('.comment-input');
-        const btn = section.querySelector('.comment-submit');
-        const text = textarea.value.trim();
+        const btn      = section.querySelector('.comment-submit');
+        const text     = textarea.value.trim();
         if (!text) { textarea.focus(); return; }
 
-        btn.disabled = true;
+        btn.disabled    = true;
         btn.textContent = 'Mengirim...';
 
         const { ip, hostname } = await getIdentity();
-        const timestamp_display = new Date().toLocaleString('id-ID', { 
-            day: 'numeric', month: 'short', year: 'numeric', 
-            hour: '2-digit', minute: '2-digit' 
+        const timestamp_display = new Date().toLocaleString('id-ID', {
+            day: 'numeric', month: 'short', year: 'numeric',
+            hour: '2-digit', minute: '2-digit'
         }) + ' WITA';
 
         try {
-            const { error } = await supabaseClient
-                .from('comments')
-                .insert([{ 
-                    card_id: cardId, 
-                    text: text, 
-                    ip: ip, 
-                    hostname: hostname,
-                    timestamp_display: timestamp_display
-                }]);
+            const res = await fetch(`${API_BASE}/api/comments`, {
+                method:  'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body:    JSON.stringify({ card_id: cardId, text, ip, hostname, timestamp_display })
+            });
 
-            if (error) throw error;
-            
+            if (!res.ok) {
+                const err = await res.json().catch(() => ({}));
+                throw new Error(err.error || `HTTP ${res.status}`);
+            }
+
             textarea.value = '';
             await loadComments(section, cardId);
         } catch (err) {
             console.error(err);
-            alert('Gagal mengirim komentar ke Supabase.');
+            alert('Gagal mengirim komentar: ' + err.message);
         } finally {
-            btn.disabled = false;
+            btn.disabled    = false;
             btn.textContent = 'Kirim';
         }
     }
@@ -184,15 +168,12 @@ document.addEventListener("DOMContentLoaded", () => {
      * Delete a comment
      */
     async function deleteComment(section, cardId, commentId) {
-        if (!supabaseClient) return;
-
         try {
-            const { error } = await supabaseClient
-                .from('comments')
-                .delete()
-                .eq('id', commentId);
-
-            if (error) throw error;
+            const res = await fetch(
+                `${API_BASE}/api/comments?card=${encodeURIComponent(cardId)}&id=${encodeURIComponent(commentId)}`,
+                { method: 'DELETE' }
+            );
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
             await loadComments(section, cardId);
         } catch (err) {
             console.error(err);
@@ -200,7 +181,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // ─── Wire up all comment sections ───────────────────────────────────
+    // ─── Wire up all comment sections ────────────────────────────────────
     document.querySelectorAll('.comment-section').forEach(section => {
         const cardId = section.dataset.cardId;
         loadComments(section, cardId);

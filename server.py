@@ -1,151 +1,238 @@
 #!/usr/bin/env python3
 """
-Custom HTTP server that serves static files AND handles the comments API.
-Replaces: python -m http.server 8000
-Usage:    python server.py
+HTTP server — serves static files AND handles the comments API via Turso (libSQL).
+
+Setup:
+    1. Copy .env.example to .env and fill in TURSO_URL and TURSO_TOKEN
+    2. pip install libsql-client python-dotenv
+    3. python server.py
+
+Usage:
+    python server.py
 """
 
+import asyncio
 import http.server
 import json
 import os
 import urllib.parse
-from datetime import datetime
+from datetime import datetime, timezone
 
-COMMENTS_FILE = os.path.join(os.path.dirname(__file__), "comments.json")
-PORT = 8000
+import libsql_client
+from dotenv import load_dotenv
+
+# ─── Config ─────────────────────────────────────────────────────────────────
+load_dotenv()
+
+TURSO_URL   = os.environ.get("TURSO_URL", "")
+TURSO_TOKEN = os.environ.get("TURSO_TOKEN", "")
+PORT        = int(os.environ.get("PORT", 8000))
+
+if not TURSO_URL or not TURSO_TOKEN:
+    raise SystemExit(
+        "❌  Missing TURSO_URL or TURSO_TOKEN.\n"
+        "    Copy .env.example → .env and fill in your Turso credentials."
+    )
 
 
-def load_comments():
-    try:
-        with open(COMMENTS_FILE, "r", encoding="utf-8") as f:
-            return json.load(f)
-    except (FileNotFoundError, json.JSONDecodeError):
-        return {}
+# ─── DB helpers (sync wrappers around async libsql) ─────────────────────────
+
+def _run(coro):
+    """Run an async coroutine from synchronous code."""
+    return asyncio.get_event_loop().run_until_complete(coro)
 
 
-def save_comments(data):
-    with open(COMMENTS_FILE, "w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
+async def _execute(sql: str, args: list = None):
+    async with libsql_client.create_client(TURSO_URL, auth_token=TURSO_TOKEN) as client:
+        return await client.execute(sql, args or [])
 
+
+def db_init():
+    """Create the comments table if it doesn't exist."""
+    _run(_execute("""
+        CREATE TABLE IF NOT EXISTS comments (
+            id               TEXT PRIMARY KEY,
+            card_id          TEXT NOT NULL,
+            text             TEXT NOT NULL,
+            ip               TEXT,
+            hostname         TEXT,
+            timestamp_display TEXT,
+            created_at       TEXT NOT NULL
+        )
+    """))
+    print("✅  Connected to Turso — table ready.")
+
+
+def db_get_comments(card_id: str) -> list:
+    result = _run(_execute(
+        "SELECT id, card_id, text, ip, hostname, timestamp_display, created_at "
+        "FROM comments WHERE card_id = ? ORDER BY created_at ASC",
+        [card_id]
+    ))
+    rows = []
+    for row in result.rows:
+        rows.append({
+            "id":                row[0],
+            "card_id":           row[1],
+            "text":              row[2],
+            "ip":                row[3],
+            "hostname":          row[4],
+            "timestamp_display": row[5],
+            "created_at":        row[6],
+        })
+    return rows
+
+
+def db_insert_comment(comment: dict):
+    _run(_execute(
+        "INSERT INTO comments (id, card_id, text, ip, hostname, timestamp_display, created_at) "
+        "VALUES (?, ?, ?, ?, ?, ?, ?)",
+        [
+            comment["id"],
+            comment["card_id"],
+            comment["text"],
+            comment["ip"],
+            comment["hostname"],
+            comment["timestamp_display"],
+            comment["created_at"],
+        ]
+    ))
+
+
+def db_delete_comment(comment_id: str) -> bool:
+    result = _run(_execute(
+        "DELETE FROM comments WHERE id = ?",
+        [comment_id]
+    ))
+    return result.rows_affected > 0
+
+
+# ─── HTTP Handler ────────────────────────────────────────────────────────────
 
 class CommentHandler(http.server.SimpleHTTPRequestHandler):
 
     def log_message(self, format, *args):
-        # Suppress default logging noise; only print errors
-        pass
+        pass  # Suppress default noise
 
     # ─── GET ────────────────────────────────────────────────────────────────
     def do_GET(self):
         parsed = urllib.parse.urlparse(self.path)
 
         if parsed.path == "/api/comments":
-            params = urllib.parse.parse_qs(parsed.query)
+            params  = urllib.parse.parse_qs(parsed.query)
             card_id = params.get("card", [""])[0]
-            all_comments = load_comments()
-            card_comments = all_comments.get(card_id, [])
-            self._json_response(200, card_comments)
+            try:
+                comments = db_get_comments(card_id)
+                self._json(200, comments)
+            except Exception as e:
+                print(f"[error] GET /api/comments: {e}")
+                self._json(500, {"error": str(e)})
         else:
-            # Serve static files normally
             super().do_GET()
 
     # ─── POST ───────────────────────────────────────────────────────────────
     def do_POST(self):
-        if self.path == "/api/comments":
-            length = int(self.headers.get("Content-Length", 0))
-            body = self.rfile.read(length)
-            try:
-                payload = json.loads(body)
-            except json.JSONDecodeError:
-                self._json_response(400, {"error": "Invalid JSON"})
-                return
+        if self.path != "/api/comments":
+            self._json(404, {"error": "Not found"})
+            return
 
-            card_id = payload.get("card_id", "").strip()
-            text = payload.get("text", "").strip()
-            hostname = payload.get("hostname", "").strip()
+        length = int(self.headers.get("Content-Length", 0))
+        body   = self.rfile.read(length)
+        try:
+            payload = json.loads(body)
+        except json.JSONDecodeError:
+            self._json(400, {"error": "Invalid JSON"})
+            return
 
-            if not card_id or not text:
-                self._json_response(400, {"error": "Missing card_id or text"})
-                return
+        card_id   = payload.get("card_id", "").strip()
+        text      = payload.get("text", "").strip()
+        hostname  = payload.get("hostname", "").strip()
+        ts_display = payload.get("timestamp_display", "").strip()
 
-            # Capture real IP server-side
-            ip = (
-                self.headers.get("X-Forwarded-For", "").split(",")[0].strip()
-                or self.client_address[0]
-            )
+        if not card_id or not text:
+            self._json(400, {"error": "Missing card_id or text"})
+            return
 
-            comment = {
-                "id": datetime.utcnow().isoformat() + "Z",
-                "text": text,
-                "ip": ip,
-                "hostname": hostname or ip,
-                "timestamp": datetime.utcnow().strftime("%d %b %Y, %H:%M UTC"),
-            }
+        ip = (
+            self.headers.get("X-Forwarded-For", "").split(",")[0].strip()
+            or self.client_address[0]
+        )
 
-            all_comments = load_comments()
-            if card_id not in all_comments:
-                all_comments[card_id] = []
-            all_comments[card_id].append(comment)
-            save_comments(all_comments)
+        now = datetime.now(timezone.utc)
+        comment = {
+            "id":                now.isoformat(),
+            "card_id":           card_id,
+            "text":              text,
+            "ip":                ip,
+            "hostname":          hostname or ip,
+            "timestamp_display": ts_display or now.strftime("%d %b %Y, %H:%M UTC"),
+            "created_at":        now.isoformat(),
+        }
 
-            print(f"[comment] card={card_id} ip={ip} hostname={comment['hostname']}")
-            self._json_response(201, comment)
-
-        else:
-            self._json_response(404, {"error": "Not found"})
+        try:
+            db_insert_comment(comment)
+            print(f"[comment] card={card_id} ip={ip}")
+            self._json(201, comment)
+        except Exception as e:
+            print(f"[error] POST /api/comments: {e}")
+            self._json(500, {"error": str(e)})
 
     # ─── DELETE ─────────────────────────────────────────────────────────────
     def do_DELETE(self):
         parsed = urllib.parse.urlparse(self.path)
-        if parsed.path == "/api/comments":
-            params = urllib.parse.parse_qs(parsed.query)
-            card_id = params.get("card", [""])[0]
-            comment_id = params.get("id", [""])[0]
+        if parsed.path != "/api/comments":
+            self._json(404, {"error": "Not found"})
+            return
 
-            if not card_id or not comment_id:
-                self._json_response(400, {"error": "Missing card or id"})
-                return
+        params     = urllib.parse.parse_qs(parsed.query)
+        comment_id = params.get("id", [""])[0]
 
-            all_comments = load_comments()
-            if card_id in all_comments:
-                original_count = len(all_comments[card_id])
-                all_comments[card_id] = [c for c in all_comments[card_id] if c.get("id") != comment_id]
-                
-                if len(all_comments[card_id]) < original_count:
-                    save_comments(all_comments)
-                    print(f"[delete] card={card_id} id={comment_id}")
-                    self._json_response(200, {"success": True})
-                    return
-            
-            self._json_response(404, {"error": "Comment not found"})
-        else:
-            self._json_response(404, {"error": "Not found"})
+        if not comment_id:
+            self._json(400, {"error": "Missing id"})
+            return
 
-    # ─── CORS + HELPERS ─────────────────────────────────────────────────────
+        try:
+            deleted = db_delete_comment(comment_id)
+            if deleted:
+                print(f"[delete] id={comment_id}")
+                self._json(200, {"success": True})
+            else:
+                self._json(404, {"error": "Comment not found"})
+        except Exception as e:
+            print(f"[error] DELETE /api/comments: {e}")
+            self._json(500, {"error": str(e)})
+
+    # ─── CORS + OPTIONS ─────────────────────────────────────────────────────
     def do_OPTIONS(self):
         self.send_response(204)
-        self._add_cors()
+        self._cors()
         self.end_headers()
 
-    def _add_cors(self):
+    def _cors(self):
         self.send_header("Access-Control-Allow-Origin", "*")
         self.send_header("Access-Control-Allow-Methods", "GET, POST, DELETE, OPTIONS")
         self.send_header("Access-Control-Allow-Headers", "Content-Type")
 
-    def _json_response(self, status, data):
+    def _json(self, status, data):
         body = json.dumps(data, ensure_ascii=False).encode("utf-8")
         self.send_response(status)
         self.send_header("Content-Type", "application/json; charset=utf-8")
         self.send_header("Content-Length", str(len(body)))
-        self._add_cors()
+        self._cors()
         self.end_headers()
         self.wfile.write(body)
 
 
+# ─── Entry Point ─────────────────────────────────────────────────────────────
+
 if __name__ == "__main__":
     os.chdir(os.path.dirname(os.path.abspath(__file__)))
+
+    # Initialise table on startup
+    db_init()
+
     with http.server.ThreadingHTTPServer(("", PORT), CommentHandler) as httpd:
-        print(f"✅  Server running at http://localhost:{PORT}")
-        print(f"    Comments stored in: {COMMENTS_FILE}")
+        print(f"🚀  Server running at http://localhost:{PORT}")
         print("    Press Ctrl+C to stop.\n")
         try:
             httpd.serve_forever()

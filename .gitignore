@@ -1,0 +1,10 @@
+# Environment variables — never commit real secrets
+.env
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# OS
+.DS_Store
+Thumbs.db
