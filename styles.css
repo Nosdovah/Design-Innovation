@@ -766,6 +766,29 @@ footer {
 
 .comment-form {
     display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.comment-name {
+    width: 240px;
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 0.6rem 1rem;
+    color: var(--text-primary);
+    font-size: 0.85rem;
+    font-family: inherit;
+    transition: border-color 0.2s;
+}
+
+.comment-name:focus {
+    outline: none;
+    border-color: rgba(109, 74, 255, 0.5);
+}
+
+.comment-row {
+    display: flex;
     gap: 0.75rem;
     align-items: flex-end;
 }

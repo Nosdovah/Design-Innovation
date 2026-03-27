@@ -182,15 +182,19 @@ document.addEventListener("DOMContentLoaded", () => {
      * Submit a comment for a card
      */
     async function submitComment(section, cardId) {
+        const nameInput = section.querySelector('.comment-name');
         const textarea = section.querySelector('.comment-input');
         const btn      = section.querySelector('.comment-submit');
         const text     = textarea.value.trim();
+        const userInputName = nameInput.value.trim();
+
         if (!text) { textarea.focus(); return; }
 
         btn.disabled    = true;
         btn.textContent = 'Mengirim...';
 
-        const { ip, hostname } = await getIdentity();
+        const { ip, hostname: autoHostname } = await getIdentity();
+        const finalHostname = userInputName || autoHostname || 'Anonymous';
         const now = new Date();
         const timestamp_display = now.toLocaleString('id-ID', {
             day: 'numeric', month: 'short', year: 'numeric',
@@ -202,10 +206,11 @@ document.addEventListener("DOMContentLoaded", () => {
             await tursoExec(
                 'INSERT INTO comments (id, card_id, text, ip, hostname, timestamp_display, created_at) ' +
                 'VALUES (?, ?, ?, ?, ?, ?, ?)',
-                [id, cardId, text, ip, hostname, timestamp_display, id]
+                [id, cardId, text, ip, finalHostname, timestamp_display, id]
             );
 
             textarea.value = '';
+            nameInput.value = '';
             await loadComments(section, cardId);
         } catch (err) {
             console.error(err);
