@@ -42,11 +42,18 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /**
-     * Map a Turso row (array of {type,value}) to a plain JS object using cols.
+     * Map a Turso row (array of {type,value} or raw values) to a JS object.
      */
     function rowToObj(cols, row) {
         const obj = {};
-        cols.forEach((col, i) => { obj[col.name] = row[i]?.value ?? null; });
+        cols.forEach((col, i) => {
+            const raw = row[i];
+            // Handle tagged objects {type, value} OR direct values
+            let val = (raw && typeof raw === 'object' && 'value' in raw) ? raw.value : raw;
+            // Handle null/undefined explicitly
+            if (val === undefined || val === null) val = '';
+            obj[col.name.toLowerCase()] = val;
+        });
         return obj;
     }
 
@@ -97,10 +104,15 @@ document.addEventListener("DOMContentLoaded", () => {
         const li = document.createElement('li');
         li.className = 'comment-item';
         li.dataset.commentId = c.id;
+        
+        // Using || 'unknown' to ensure we never have an empty label
+        const nameText = (c.hostname && c.hostname !== 'null' && c.hostname !== 'undefined') ? c.hostname : 'unknown';
+        const ipText = (c.ip && c.ip !== 'null' && c.ip !== 'undefined') ? c.ip : 'unknown';
+
         li.innerHTML = `
             <div class="comment-meta">
-                <span class="comment-author">🖥️ ${escapeHtml(c.hostname || 'unknown')}</span>
-                <span class="comment-ip">📡 ${escapeHtml(c.ip || 'unknown')}</span>
+                <span class="comment-author">🖥️ Name: ${escapeHtml(nameText)}</span>
+                <span class="comment-ip">📡 IP: ${escapeHtml(ipText)}</span>
                 <span class="comment-time">${escapeHtml(c.timestamp_display || c.created_at || '')}</span>
                 <button class="comment-delete" title="Hapus Komentar">✕</button>
             </div>
