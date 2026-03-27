@@ -24,9 +24,12 @@ from dotenv import load_dotenv
 # ─── Config ─────────────────────────────────────────────────────────────────
 load_dotenv()
 
-TURSO_URL   = os.environ.get("TURSO_URL", "")
+_RAW_URL    = os.environ.get("TURSO_URL", "")
 TURSO_TOKEN = os.environ.get("TURSO_TOKEN", "")
 PORT        = int(os.environ.get("PORT", 8000))
+
+# libsql-client uses HTTP transport — convert libsql:// → https://
+TURSO_URL = _RAW_URL.replace("libsql://", "https://") if _RAW_URL.startswith("libsql://") else _RAW_URL
 
 if not TURSO_URL or not TURSO_TOKEN:
     raise SystemExit(
@@ -39,7 +42,7 @@ if not TURSO_URL or not TURSO_TOKEN:
 
 def _run(coro):
     """Run an async coroutine from synchronous code."""
-    return asyncio.get_event_loop().run_until_complete(coro)
+    return asyncio.run(coro)
 
 
 async def _execute(sql: str, args: list = None):
