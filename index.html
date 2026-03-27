@@ -28,20 +28,20 @@
     </nav>
 
     <header class="hero">
-        <h1 class="hero-title">Social Media<br><span class="gradient-text">Inspiration Analysis</span></h1>
-        <p class="hero-subtitle">Mengidentifikasi peluang inovasi produk dari konten cybersecurity dan keamanan digital
+        <h1 class="hero-title fade-hero delay-1">Social Media<br><span class="gradient-text">Inspiration Analysis</span></h1>
+        <p class="hero-subtitle fade-hero delay-2">Mengidentifikasi peluang inovasi produk dari konten cybersecurity dan keamanan digital
             berperforma tinggi di YouTube Shorts.</p>
-        <div class="author-card">
+        <div class="author-card fade-hero delay-3">
             <span class="author-name">Raihan Hanif Firdaus</span>
             <span class="author-npm">NPM: 023124157</span>
         </div>
-        <a href="#inspirations" class="scroll-btn">Explore Findings ↓</a>
+        <a href="#inspirations" class="scroll-btn fade-hero delay-4">Explore Findings ↓</a>
     </header>
 
     <main id="inspirations" class="container">
 
         <!-- Card 1: Teguh Aprianto -->
-        <section class="card nordvpn">
+        <section class="card nordvpn fade-in">
             <div class="card-content">
                 <div class="brand-header">
                     <div class="brand-info">
@@ -114,7 +114,7 @@
         </section>
 
         <!-- Card 2: Risyad and Son -->
-        <section class="card surfshark">
+        <section class="card surfshark fade-in">
             <div class="card-content">
                 <div class="brand-header">
                     <div class="brand-info">
@@ -186,7 +186,7 @@
         </section>
 
         <!-- Card 3: WiFi Hacking -->
-        <section class="card proton">
+        <section class="card proton fade-in">
             <div class="card-content">
                 <div class="brand-header">
                     <div class="brand-info">
@@ -242,7 +242,7 @@
         </section>
 
         <!-- Card 4: HILTSWALTAI -->
-        <section class="card signal">
+        <section class="card signal fade-in">
             <div class="card-content">
                 <div class="brand-header">
                     <div class="brand-info">
@@ -303,7 +303,7 @@
         </section>
 
         <!-- Card 5: K.O. Orias -->
-        <section class="card malwarebytes">
+        <section class="card malwarebytes fade-in">
             <div class="card-content">
                 <div class="brand-header">
                     <div class="brand-info">
@@ -372,6 +372,27 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="script.js"></script>
+    <script>
+        // Intersection Observer for fade-in animations
+        (function () {
+            const io = new IntersectionObserver((entries) => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) {
+                        e.target.classList.add('visible');
+                        io.unobserve(e.target);
+                    }
+                });
+            }, { threshold: 0.12 });
+
+            // Hero elements trigger immediately on load
+            document.querySelectorAll('.fade-hero').forEach((el, i) => {
+                setTimeout(() => el.classList.add('visible'), 200 + i * 120);
+            });
+
+            // Cards observed on scroll
+            document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
+        })();
+    </script>
 </body>
 
 </html>

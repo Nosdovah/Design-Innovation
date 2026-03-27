@@ -31,21 +31,21 @@
 
     <!-- Hero -->
     <header class="hero">
-        <div class="phase-eyebrow">Phase 2</div>
-        <h1 class="hero-title">Design<br><span class="gradient-text">Thinking</span></h1>
-        <p class="hero-subtitle">Sebuah pendekatan inovatif yang berpusat pada manusia untuk memecahkan masalah kompleks melalui empati, kreativitas, dan iterasi.</p>
-        <div class="author-card">
+        <div class="phase-eyebrow fade-hero delay-1">Phase 2</div>
+        <h1 class="hero-title fade-hero delay-2">Design<br><span class="gradient-text">Thinking</span></h1>
+        <p class="hero-subtitle fade-hero delay-3">Sebuah pendekatan inovatif yang berpusat pada manusia untuk memecahkan masalah kompleks melalui empati, kreativitas, dan iterasi.</p>
+        <div class="author-card fade-hero delay-4">
             <span class="author-name">Raihan Hanif Firdaus</span>
             <span class="author-npm">NPM: 023124157</span>
         </div>
-        <a href="#steps" class="scroll-btn">Explore Steps ↓</a>
+        <a href="#steps" class="scroll-btn fade-hero delay-5">Explore Steps ↓</a>
     </header>
 
     <!-- Design Thinking Steps -->
     <main id="steps" class="container">
 
         <!-- Step 1: Empathize -->
-        <section class="step-card step-empathize" id="empathize">
+        <section class="step-card step-empathize fade-in" id="empathize">
             <div class="step-number">01</div>
             <div class="step-content">
                 <div class="step-header">
@@ -106,7 +106,7 @@
         </section>
 
         <!-- Step 2: Define -->
-        <section class="step-card step-define" id="define">
+        <section class="step-card step-define fade-in" id="define">
             <div class="step-number">02</div>
             <div class="step-content">
                 <div class="step-header">
@@ -167,7 +167,7 @@
         </section>
 
         <!-- Step 3: Ideate -->
-        <section class="step-card step-ideate" id="ideate">
+        <section class="step-card step-ideate fade-in" id="ideate">
             <div class="step-number">03</div>
             <div class="step-content">
                 <div class="step-header">
@@ -228,7 +228,7 @@
         </section>
 
         <!-- Step 4: Prototype -->
-        <section class="step-card step-prototype" id="prototype">
+        <section class="step-card step-prototype fade-in" id="prototype">
             <div class="step-number">04</div>
             <div class="step-content">
                 <div class="step-header">
@@ -289,7 +289,7 @@
         </section>
 
         <!-- Step 5: Test -->
-        <section class="step-card step-test" id="test">
+        <section class="step-card step-test fade-in" id="test">
             <div class="step-number">05</div>
             <div class="step-content">
                 <div class="step-header">
@@ -357,6 +357,24 @@
     </footer>
 
 
+    <script>
+        (function () {
+            const io = new IntersectionObserver((entries) => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) {
+                        e.target.classList.add('visible');
+                        io.unobserve(e.target);
+                    }
+                });
+            }, { threshold: 0.12 });
+
+            document.querySelectorAll('.fade-hero').forEach((el, i) => {
+                setTimeout(() => el.classList.add('visible'), 200 + i * 120);
+            });
+
+            document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
+        })();
+    </script>
 </body>
 
 </html>

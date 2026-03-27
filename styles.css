@@ -818,3 +818,35 @@ footer {
     cursor: not-allowed;
     transform: none;
 }
+
+/* ═══════════════════════════════════════════════════
+   Fade-In Scroll Animation
+═══════════════════════════════════════════════════ */
+.fade-in {
+    opacity: 0;
+    transform: translateY(36px);
+    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Hero elements: simple fade (no translate) */
+.fade-hero {
+    opacity: 0;
+    transition: opacity 0.9s ease;
+}
+
+.fade-hero.visible {
+    opacity: 1;
+}
+
+/* Stagger delays for child elements */
+.fade-in:nth-child(1), .fade-in.delay-1 { transition-delay: 0s; }
+.fade-in:nth-child(2), .fade-in.delay-2 { transition-delay: 0.1s; }
+.fade-in:nth-child(3), .fade-in.delay-3 { transition-delay: 0.2s; }
+.fade-in:nth-child(4), .fade-in.delay-4 { transition-delay: 0.3s; }
+.fade-in:nth-child(5), .fade-in.delay-5 { transition-delay: 0.4s; }
