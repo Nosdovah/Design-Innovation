@@ -563,6 +563,7 @@ h1, h2, h3, .logo, .step-number {
     display: flex;
     gap: 0.75rem;
     flex-wrap: wrap;
+    margin-top: 2rem;
 }
 
 .tag {
