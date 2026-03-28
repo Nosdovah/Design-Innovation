@@ -496,6 +496,68 @@ h1, h2, h3, .logo, .step-number {
     font-style: italic;
 }
 
+/* ─── Insights Grid (populated findings) ─── */
+.step-findings {
+    grid-column: 1 / -1;
+}
+
+.insights-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+}
+
+.insight-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 1.1rem 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.insight-card:hover {
+    background: rgba(255, 255, 255, 0.07);
+    transform: translateY(-2px);
+}
+
+.insight-card--highlight {
+    border-color: rgba(109, 74, 255, 0.4);
+    background: rgba(109, 74, 255, 0.07);
+    grid-column: span 2;
+}
+
+.insight-icon {
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+.insight-card strong {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.insight-card p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.insight-link {
+    color: #a78bfa;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(167, 139, 250, 0.35);
+    transition: border-color 0.2s;
+}
+
+.insight-link:hover {
+    border-color: #a78bfa;
+}
+
 /* Tags */
 .step-tags {
     display: flex;
