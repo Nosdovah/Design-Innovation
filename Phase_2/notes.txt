@@ -1,0 +1,64 @@
+1. Empathize (Empati): Memahami Realitas & Psikologi Pasar
+Pada tahap ini, saya melepaskan ego teknis saya untuk melihat ketakutan dan keterbatasan nyata pemilik UMKM di Indonesia.
+
+Analisis Fragmentasi Data: Saya menemukan bahwa data pelanggan UMKM tersebar di WhatsApp, Excel, dan database mentah. Secara bisnis, ini adalah aset yang berantakan; secara engineering, ini adalah lubang keamanan yang masif.
+
+Persepsi Biaya Konsultan: UMKM menganggap jasa Data Protection Officer (DPO) manusia adalah kemewahan korporat yang harganya bisa mencapai puluhan juta rupiah. Ada peluang bisnis untuk mendisrupsi harga ini dengan teknologi.
+
+Ketakutan Sanksi Administrasi: Saya mencatat kecemasan pemilik bisnis terhadap denda 2% dari pendapatan tahunan menurut UU PDP. Ketakutan ini adalah pendorong utama (buying trigger) yang kuat untuk produk saya.
+
+Prioritas Kelangsungan Bisnis: Pemilik UMKM lebih takut rekening bank mereka dibekukan karena penyelidikan kebocoran data daripada kebocoran itu sendiri. Saya harus memposisikan produk sebagai "penjaga pintu" operasional.
+
+Keterbatasan Literasi Digital: Kebanyakan pengguna tidak tahu apa itu enkripsi. Saya menyadari bahwa saya tidak boleh menjual "fitur teknis", melainkan menjual "status kepatuhan" yang mudah dimengerti.
+
+2. Define (Definisi): Merumuskan Masalah & Peluang RegTech
+Di sini, saya menyaring semua data empati menjadi strategi produk yang tajam dan fokus.
+
+Identifikasi "Compliance Gap": Saya mendefinisikan masalah utama sebagai jurang pemisah antara kewajiban hukum pemerintah yang ketat dan kemampuan teknis UMKM yang minim.
+
+Penentuan Ruang Lingkup Data (PII): Fokus utama bot saya didefinisikan secara spesifik untuk melindungi NIK, nomor telepon, dan data transaksi—tiga elemen yang paling sering disalahgunakan dalam kasus pinjol ilegal.
+
+Rumusan Masalah Utama (HMW): "Bagaimana cara mengotomatisasi pengawasan data 24/7 tanpa menambah beban gaji karyawan atau biaya server yang mahal bagi pemilik bisnis?"
+
+Penetapan Value Proposition: Saya menetapkan bahwa LexGuard AI adalah "DPO Digital Mandiri". Bisnisnya adalah kepatuhan hukum, teknologinya adalah otomasi siber.
+
+Analisis Risiko Kegagalan: Sebagai businessman, saya mendefinisikan risiko terbesar adalah jika bot saya dianggap sebagai beban tambahan bagi server mereka. Jadi, definisinya harus "ringan dan non-intrusif".
+
+3. Ideate (Ideasi): Arsitektur Solusi & Skalabilitas Bisnis
+Saya menggunakan kreativitas engineering untuk membangun model bisnis yang menguntungkan dan aman.
+
+Arsitektur Local-First AI (Ollama): Saya memilih menjalankan DeepSeek via Ollama. Secara teknis, ini menjamin data tidak keluar dari server klien (kedaulatan data). Secara bisnis, ini menghilangkan ketergantungan pada biaya API pihak ketiga yang fluktuatif.
+
+Orchestration Alur Kerja (n8n): Saya merancang n8n sebagai "mesin audit otomatis". Ia akan melakukan pengecekan rutin setiap malam, memvalidasi enkripsi, dan membuat laporan tanpa campur tangan manusia.
+
+Sistem Pelaporan ROPA Otomatis: Saya memikirkan cara agar sistem bisa menghasilkan dokumen Record of Processing Activities (ROPA) secara otomatis dalam format PDF. Ini adalah fitur "pembunuh" karena sangat dibutuhkan saat audit resmi.
+
+Deteksi Anomali Berbasis Perilaku: Menggunakan AI untuk mendeteksi jika ada ekspor data massal yang mencurigakan. Ini memberikan nilai tambah di luar sekadar kepatuhan, yaitu perlindungan dari pencurian data internal.
+
+Model Monetisasi SaaS Tiered: Saya merancang skema harga: Paket gratis untuk pemindaian dasar, dan paket pro untuk audit mendalam serta notifikasi pelanggaran 72 jam secara otomatis.
+
+4. Prototype (Prototipe): Membangun MVP yang Tangguh
+Tahap ini adalah pembuktian bahwa desain saya bisa berjalan secara teknis dan menarik secara visual.
+
+Dashboard Minimalis di Vercel: Saya membangun tampilan depan di innovationdesign.vercel.app menggunakan framework modern. Fokusnya adalah indikator visual: Hijau berarti aman/patuh, Merah berarti ada celah risiko.
+
+Infrastruktur Turso (Always-On): Sebagai engineer, saya mengintegrasikan Turso sebagai database audit. Keunggulannya adalah permanent uptime, sehingga log kepatuhan bisa diakses kapan saja oleh regulator jika diperlukan tanpa kendala cold start.
+
+Node Integrasi n8n yang Adaptif: Saya membuat prototipe konektor yang bisa dihubungkan ke berbagai database umum (Postgres, MySQL, Google Sheets) hanya dalam hitungan menit.
+
+Integrasi Model LLM Lokal: Saya mensimulasikan bagaimana Ollama memproses satu baris data sensitif dan memberikan rekomendasi perbaikan secara instan di dashboard.
+
+Simulasi Notifikasi Pelanggaran: Prototipe ini mencakup sistem peringatan dini melalui WhatsApp/Email jika ditemukan data pribadi yang "telanjang" (tidak terenkripsi) di server.
+
+5. Test (Uji Coba): Validasi Teknis & Penerimaan Pasar
+Saya membenturkan produk saya ke dunia nyata untuk memastikan ia layak secara ekonomi dan fungsional secara teknis.
+
+Uji Penetrasi Sederhana: Saya mencoba memasukkan data NIK dummy ke database untuk melihat apakah n8n dan AI saya berhasil menangkap dan melaporkannya. Ini validasi teknis saya.
+
+Survei Willingness-to-Pay: Saya mempresentasikan dashboard ini kepada beberapa pemilik startup di Bogor. Fokus saya adalah: "Apakah laporan ini cukup berharga sehingga Anda bersedia membayar biaya langganan bulanan?"
+
+Evaluasi UI/UX bagi Non-Teknis: Saya mengamati apakah orang awam bisa mengoperasikan dashboard ini. Jika mereka bingung, saya (sebagai engineer) harus menyederhanakan logika interface-nya.
+
+Analisis Efisiensi Biaya Operasional: Saya menghitung total biaya penggunaan Vercel + Turso + Self-hosted n8n untuk memastikan biaya produksi saya jauh di bawah harga jual ke pelanggan.
+
+Iterasi Berbasis Regulasi: Saya melakukan uji coba apakah laporan yang dihasilkan sistem saya sudah sesuai dengan format yang diminta oleh draft panduan dari Kementerian Kominfo/Badan Pengawas PDP.
