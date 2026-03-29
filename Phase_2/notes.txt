@@ -1,5 +1,5 @@
 1. Empathize (Empati): Memahami Realitas & Psikologi Pasar
-Pada tahap ini, saya melepaskan ego teknis saya untuk melihat ketakutan dan keterbatasan nyata pemilik UMKM di Indonesia.
+Pada tahap ini, saya melihat ketakutan dan keterbatasan nyata pemilik UMKM di Indonesia.
 
 Analisis Fragmentasi Data: Saya menemukan bahwa data pelanggan UMKM tersebar di WhatsApp, Excel, dan database mentah. Secara bisnis, ini adalah aset yang berantakan; secara engineering, ini adalah lubang keamanan yang masif.
 

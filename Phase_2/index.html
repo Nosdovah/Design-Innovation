@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Phase 2: Design Thinking — Innovation in Product and Process Design</title>
     <meta name="description"
-        content="Phase 2 of Innovation in Product and Process Design — Design Thinking steps: Empathize, Define, Ideate, Prototype, and Test.">
+        content="Phase 2 of Innovation in Product and Process Design — Design Thinking steps.">
     <link
         href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@400;500;700&display=swap"
         rel="stylesheet">
@@ -14,14 +14,12 @@
 </head>
 
 <body>
-
     <div class="background-orbs">
         <div class="orb orb-1"></div>
         <div class="orb orb-2"></div>
         <div class="orb orb-3"></div>
     </div>
 
-    <!-- Navbar -->
     <nav class="navbar">
         <div class="logo">Innovation<span class="highlight">Design</span></div>
         <div class="nav-links">
@@ -30,588 +28,555 @@
         </div>
     </nav>
 
-    <!-- Hero -->
-    <header class="hero">
-        <div class="phase-eyebrow fade-hero delay-1">Phase 2</div>
-        <h1 class="hero-title fade-hero delay-2">Design<br><span class="gradient-text">Thinking</span></h1>
-        <p class="hero-subtitle fade-hero delay-3">Sebuah pendekatan inovatif yang berpusat pada manusia untuk
-            memecahkan masalah kompleks melalui empati, kreativitas, dan iterasi.</p>
-        <div class="author-card fade-hero delay-4">
-            <span class="author-name">Raihan Hanif Firdaus</span>
-            <span class="author-npm">NPM: 023124157</span>
+    <!-- 3D Interactive Horizontal Book -->
+    <main id="book-app" class="book-container">
+        
+        <!-- Navigation Buttons -->
+        <button id="prev-btn" class="nav-btn" aria-label="Previous Page" disabled>
+            <span class="nav-arrow">←</span> Prev
+        </button>
+
+        <div class="book-wrapper perspective-wrapper fade-in delay-2">
+            <div id="the-book" class="book">
+
+                <!-- ══════════════ LEAF 1: Cover (F) / Empathize Content (B) ══════════════ -->
+                <div class="leaf" id="leaf-1" style="z-index: 6;">
+                    
+                    <!-- Cover (Front) -->
+                    <div class="page front cover-bg">
+                        <div class="cover-binding"></div>
+                        <div class="cover-body">
+                            <div class="phase-eyebrow">Phase 2</div>
+                            <h1 class="hero-title">Design<br><span class="gradient-text">Thinking</span></h1>
+                            <p class="hero-subtitle">Sebuah pendekatan inovatif yang berpusat pada manusia untuk memecahkan masalah kompleks melalui empati, kreativitas, dan iterasi.</p>
+                            <div class="author-card">
+                                <span class="author-name">Raihan Hanif Firdaus</span>
+                                <span class="author-npm">NPM: 023124157</span>
+                            </div>
+                            <div class="cover-cta">
+                                <span>Klik halaman untuk membuka</span>
+                                <span class="cta-arrow">→</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Empathize Content (Back - Left Page of Spread 1) -->
+                    <div class="page back empathize-bg">
+                        <div class="page-content right-shadow">
+                            
+                            <div class="step-header">
+                                <div class="step-icon">🧠</div>
+                                <div class="step-info">
+                                    <h2 class="empathize-text">Empathize</h2>
+                                    <p class="step-tagline">Memahami Realitas &amp; Psikologi Pasar UMKM</p>
+                                </div>
+                            </div>
+                            
+                            <div class="step-description">
+                                <p>Pada tahap ini, saya melihat dari segi teknis ketakutan dan keterbatasan nyata pemilik UMKM di Indonesia dengan memahami kebutuhan, perasaan, dan motivasi pengguna akhir secara langsung.</p>
+                            </div>
+
+                            <div class="methods-wrapper">
+                                <h3>Metode yang Digunakan</h3>
+                                <div class="methods-grid">
+                                    <div class="method-card"><span class="method-icon">👁️</span> Observasi</div>
+                                    <div class="method-card"><span class="method-icon">🎤</span> Wawancara</div>
+                                    <div class="method-card"><span class="method-icon">🗺️</span> Empathy Map</div>
+                                    <div class="method-card"><span class="method-icon">📋</span> Survei</div>
+                                </div>
+                            </div>
+
+                            <div class="insights-wrapper">
+                                <h3>Temuan &amp; Insight</h3>
+                                <div class="insights-grid">
+                                    <div class="insight-card">
+                                        <strong>📂 Fragmentasi Data</strong>
+                                        <p>Data pelanggan UMKM tersebar di WhatsApp, Excel, dan database mentah. Secara bisnis, ini aset berantakan; secara engineering, ini lubang keamanan masif.</p>
+                                    </div>
+                                    <div class="insight-card">
+                                        <strong>💰 Persepsi Biaya Konsultan</strong>
+                                        <p>UMKM menganggap jasa Data Protection Officer (DPO) manusia adalah kemewahan korporat. Peluang bisnis untuk mendisrupsi harga ini dengan teknologi.</p>
+                                    </div>
+                                    <div class="insight-card">
+                                        <strong>⚠️ Ketakutan Sanksi Administrasi</strong>
+                                        <p>Kecemasan pemilik bisnis terhadap denda 2% dari pendapatan tahunan menurut UU PDP. Ketakutan ini adalah pendorong utama (buying trigger).</p>
+                                    </div>
+                                    <div class="insight-card">
+                                        <strong>🛡️ Prioritas Kelangsungan Bisnis</strong>
+                                        <p>Pemilik UMKM lebih takut rekening bank dibekukan karena penyelidikan kebocoran data. Produk diposisikan sebagai "penjaga pintu" operasional.</p>
+                                    </div>
+                                    <div class="insight-card">
+                                        <strong>📉 Keterbatasan Literasi Digital</strong>
+                                        <p>Kebanyakan pengguna tidak tahu apa itu enkripsi. Saya menyadari untuk tidak menjual "fitur teknis", melainkan menjual "status kepatuhan".</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="comment-section" data-card-id="p2-empathize">
+                                <h4 class="comment-title">💬 Diskusi Empathize</h4>
+                                <ul class="comment-list"></ul>
+                                <div class="comment-form">
+                                    <input type="text" class="comment-name" placeholder="Nama Anda (Optional)">
+                                    <div class="comment-row">
+                                        <textarea class="comment-input" placeholder="Tulis komentar..."></textarea>
+                                        <button class="comment-submit">Kirim</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ══════════════ LEAF 2: Empathize Image (F) / Define Content (B) ══════════════ -->
+                <div class="leaf" id="leaf-2" style="z-index: 5;">
+                    
+                    <!-- Empathize Image (Front - Right Page of Spread 1) -->
+                    <div class="page front">
+                        <!-- image container -->
+                        <div class="step-image-container" style="background-image: url('https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=1200');"></div>
+                        <div class="step-image-overlay"></div>
+                        <div class="page-content left-shadow">
+                            <!-- Empty content, image fills the page -->
+                        </div>
+                    </div>
+
+                    <!-- Define Content (Back - Left Page of Spread 2) -->
+                    <div class="page back define-bg">
+                        <div class="page-content right-shadow">
+                            
+                            <div class="step-header">
+                                <div class="step-icon">🎯</div>
+                                <div class="step-info">
+                                    <h2 class="define-text">Define</h2>
+                                    <p class="step-tagline">Merumuskan Masalah &amp; Peluang RegTech</p>
+                                </div>
+                            </div>
+                            
+                            <div class="step-description">
+                                <p>Menyaring data empati menjadi strategi produk yang tajam dengan mendefinisikan masalah inti: jurang pemisah antara kewajiban hukum yang ketat dan kemampuan teknis UMKM yang minim.</p>
+                            </div>
+
+                            <div class="methods-wrapper">
+                                <h3>Metode yang Digunakan</h3>
+                                <div class="methods-grid">
+                                    <div class="method-card"><span class="method-icon">📌</span> Point of View</div>
+                                    <div class="method-card"><span class="method-icon">🙋</span> How Might We</div>
+                                    <div class="method-card"><span class="method-icon">🔗</span> Affinity Diagram</div>
+                                    <div class="method-card"><span class="method-icon">🧩</span> User Persona</div>
+                                </div>
+                            </div>
+
+                            <div class="insights-wrapper">
+                                <h3>Definisi Masalah</h3>
+                                <div class="insights-grid">
+                                    <div class="insight-card">
+                                        <strong>🌉 Compliance Gap</strong>
+                                        <p>Jurang pemisah antara kewajiban hukum pemerintah yang ketat dan kemampuan teknis UMKM yang minim.</p>
+                                    </div>
+                                    <div class="insight-card">
+                                        <strong>🎯 Penentuan Ruang Lingkup Data</strong>
+                                        <p>Fokus utama bot didefinisikan untuk melindungi NIK, nomor telepon, dan data transaksi—tiga elemen yang paling sering disalahgunakan.</p>
+                                    </div>
+                                    <div class="insight-card insight-card--highlight">
+                                        <strong>💬 Rumusan Masalah Utama (HMW)</strong>
+                                        <p><em>"Bagaimana cara mengotomatisasi pengawasan data 24/7 tanpa menambah beban gaji karyawan atau biaya server yang mahal?"</em></p>
+                                    </div>
+                                    <div class="insight-card">
+                                        <strong>💎 Penetapan Value Proposition</strong>
+                                        <p>LexGuard AI sebagai "DPO Digital Mandiri". Bisnisnya adalah kepatuhan hukum, teknologinya adalah otomasi siber.</p>
+                                    </div>
+                                    <div class="insight-card">
+                                        <strong>⚖️ Analisis Risiko Kegagalan</strong>
+                                        <p>Risiko terbesar jika bot dianggap sebagai beban tambahan bagi server. Definisinya harus "ringan dan non-intrusif".</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="comment-section" data-card-id="p2-define">
+                                <h4 class="comment-title">💬 Diskusi Define</h4>
+                                <ul class="comment-list"></ul>
+                                <div class="comment-form">
+                                    <input type="text" class="comment-name" placeholder="Nama Anda (Optional)">
+                                    <div class="comment-row">
+                                        <textarea class="comment-input" placeholder="Tulis komentar..."></textarea>
+                                        <button class="comment-submit">Kirim</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ══════════════ LEAF 3: Define Image (F) / Ideate Content (B) ══════════════ -->
+                <div class="leaf" id="leaf-3" style="z-index: 4;">
+                    
+                    <!-- Define Image (Front - Right Page of Spread 2) -->
+                    <div class="page front">
+                        <!-- image container -->
+                        <div class="step-image-container" style="background-image: url('https://images.unsplash.com/photo-1542621334-a2542d707826?auto=format&fit=crop&q=80&w=1200');"></div>
+                        <div class="step-image-overlay"></div>
+                        <div class="page-content left-shadow">
+                            <!-- Empty content, image fills the page -->
+                        </div>
+                    </div>
+
+                    <!-- Ideate Content (Back - Left Page of Spread 3) -->
+                    <div class="page back ideate-bg">
+                        <div class="page-content right-shadow">
+                            
+                            <div class="step-header">
+                                <div class="step-icon">💡</div>
+                                <div class="step-info">
+                                    <h2 class="ideate-text">Ideate</h2>
+                                    <p class="step-tagline">Arsitektur Solusi &amp; Skalabilitas Bisnis</p>
+                                </div>
+                            </div>
+                            
+                            <div class="step-description">
+                                <p>Menggunakan kreativitas engineering untuk membangun model bisnis menguntungkan (skalabel) dan arsitektur solusi yang teknis aman.</p>
+                            </div>
+
+                            <div class="methods-wrapper">
+                                <h3>Metode yang Digunakan</h3>
+                                <div class="methods-grid">
+                                    <div class="method-card"><span class="method-icon">🌩️</span> Brainstorming</div>
+                                    <div class="method-card"><span class="method-icon">🧱</span> SCAMPER</div>
+                                    <div class="method-card"><span class="method-icon">🗳️</span> Crazy 8s</div>
+                                    <div class="method-card"><span class="method-icon">🗂️</span> Mind Map</div>
+                                </div>
+                            </div>
+
+                            <div class="insights-wrapper">
+                                <h3>Ide Utama</h3>
+                                <div class="insights-grid">
+                                    <div class="insight-card">
+                                        <strong>🦙 Arsitektur Local-First AI (Ollama)</strong>
+                                        <p>DeepSeek via Ollama. Menjamin kedaulatan data tidak keluar server klien, dan menghilangkan ketergantungan API pihak ketiga.</p>
+                                    </div>
+                                    <div class="insight-card">
+                                        <strong>⚙️ Orchestration Alur Kerja (n8n)</strong>
+                                        <p>n8n sebagai "mesin audit otomatis" untuk validasi enkripsi dan laporan tanpa campur tangan manusia.</p>
+                                    </div>
+                                    <div class="insight-card">
+                                        <strong>📄 Sistem Pelaporan ROPA Otomatis</strong>
+                                        <p>Sistem menghasilkan dokumen Record of Processing Activities otomatis dalam format PDF sebagai fitur "pembunuh" saat audit.</p>
+                                    </div>
+                                    <div class="insight-card">
+                                        <strong>👁️ Deteksi Anomali Berbasis Perilaku</strong>
+                                        <p>AI mendeteksi ekspor data massal yang mencurigakan sebagai perlindungan dari pencurian data internal.</p>
+                                    </div>
+                                    <div class="insight-card">
+                                        <strong>💳 Model Monetisasi SaaS Tiered</strong>
+                                        <p>Skema paket gratis untuk pemindaian dasar, dan paket pro untuk audit mendalam serta notifikasi pelanggaran 72 jam.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="comment-section" data-card-id="p2-ideate">
+                                <h4 class="comment-title">💬 Diskusi Ideate</h4>
+                                <ul class="comment-list"></ul>
+                                <div class="comment-form">
+                                    <input type="text" class="comment-name" placeholder="Nama Anda (Optional)">
+                                    <div class="comment-row">
+                                        <textarea class="comment-input" placeholder="Tulis komentar..."></textarea>
+                                        <button class="comment-submit">Kirim</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ══════════════ LEAF 4: Ideate Image (F) / Prototype Content (B) ══════════════ -->
+                <div class="leaf" id="leaf-4" style="z-index: 3;">
+                    
+                    <!-- Ideate Image (Front - Right Page of Spread 3) -->
+                    <div class="page front">
+                        <!-- image container -->
+                        <div class="step-image-container" style="background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1200');"></div>
+                        <div class="step-image-overlay"></div>
+                        <div class="page-content left-shadow">
+                            <!-- Empty content, image fills the page -->
+                        </div>
+                    </div>
+
+                    <!-- Prototype Content (Back - Left Page of Spread 4) -->
+                    <div class="page back prototype-bg">
+                        <div class="page-content right-shadow">
+                            
+                            <div class="step-header">
+                                <div class="step-icon">🔧</div>
+                                <div class="step-info">
+                                    <h2 class="prototype-text">Prototype</h2>
+                                    <p class="step-tagline">Membangun MVP yang Tangguh</p>
+                                </div>
+                            </div>
+                            
+                            <div class="step-description">
+                                <p>Tahap pembuktian desain MVP secara nyata menggunakan modern stacks yang efisien agar siap diuji di dunia nyata.</p>
+                            </div>
+
+                            <div class="methods-wrapper">
+                                <h3>Teknologi Stack</h3>
+                                <div class="methods-grid">
+                                    <div class="method-card"><span class="method-icon">▲</span> Vercel</div>
+                                    <div class="method-card"><span class="method-icon">🗄️</span> Turso</div>
+                                    <div class="method-card"><span class="method-icon">⚙️</span> n8n</div>
+                                    <div class="method-card"><span class="method-icon">🦙</span> Ollama</div>
+                                </div>
+                            </div>
+
+                            <div class="insights-wrapper">
+                                <h3>Prototipe Dashboard</h3>
+                                <div class="insights-grid">
+                                    <div class="insight-card">
+                                        <strong>▲ Dashboard Minimalis di Vercel</strong>
+                                        <p>Indikator visual: Hijau berarti aman/patuh, Merah berarti ada celah risiko.</p>
+                                    </div>
+                                    <div class="insight-card">
+                                        <strong>🗄️ Infrastruktur Turso (Always-On)</strong>
+                                        <p>Permanent uptime, sehingga log audit kepatuhan bisa diakses kapan saja oleh regulator tanpa kendala cold start.</p>
+                                    </div>
+                                    <div class="insight-card">
+                                        <strong>🔗 Node Integrasi n8n Adaptif</strong>
+                                        <p>Konektor yang bisa dihubungkan ke berbagai database umum (Postgres, MySQL, Sheets) dalam hitungan menit.</p>
+                                    </div>
+                                    <div class="insight-card">
+                                        <strong>🧠 Integrasi Model LLM Lokal</strong>
+                                        <p>Ollama memproses data sensitif dan memberikan rekomendasi perbaikan instan di dashboard.</p>
+                                    </div>
+                                    <div class="insight-card">
+                                        <strong>⚠️ Simulasi Notifikasi Pelanggaran</strong>
+                                        <p>Sistem peringatan dini melalui WhatsApp/Email jika ditemukan data pribadi yang "telanjang" (tidak terenkripsi).</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="comment-section" data-card-id="p2-prototype">
+                                <h4 class="comment-title">💬 Diskusi Prototype</h4>
+                                <ul class="comment-list"></ul>
+                                <div class="comment-form">
+                                    <input type="text" class="comment-name" placeholder="Nama Anda (Optional)">
+                                    <div class="comment-row">
+                                        <textarea class="comment-input" placeholder="Tulis komentar..."></textarea>
+                                        <button class="comment-submit">Kirim</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ══════════════ LEAF 5: Prototype Image (F) / Test Content (B) ══════════════ -->
+                <div class="leaf" id="leaf-5" style="z-index: 2;">
+                    
+                    <!-- Prototype Image (Front - Right Page of Spread 4) -->
+                    <div class="page front">
+                        <!-- image container -->
+                        <div class="step-image-container" style="background-image: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1200');"></div>
+                        <div class="step-image-overlay"></div>
+                        <div class="page-content left-shadow">
+                            <!-- Empty content, image fills the page -->
+                        </div>
+                    </div>
+
+                    <!-- Test Content (Back - Left Page of Spread 5) -->
+                    <div class="page back test-bg">
+                        <div class="page-content right-shadow">
+                            
+                            <div class="step-header">
+                                <div class="step-icon">🧪</div>
+                                <div class="step-info">
+                                    <h2 class="test-text">Test</h2>
+                                    <p class="step-tagline">Validasi Teknis &amp; Penerimaan Pasar</p>
+                                </div>
+                            </div>
+                            
+                            <div class="step-description">
+                                <p>Membenturkan MVP ke dunia nyata untuk validasi kelayakan teknis, keamanan, dan penerimaan pengguna (Willingness-to-Pay).</p>
+                            </div>
+
+                            <div class="methods-wrapper">
+                                <h3>Skenario Pengujian</h3>
+                                <div class="methods-grid">
+                                    <div class="method-card"><span class="method-icon">🔓</span> Pen Testing</div>
+                                    <div class="method-card"><span class="method-icon">📊</span> Survei WTP</div>
+                                    <div class="method-card"><span class="method-icon">👁️</span> UI Eval</div>
+                                    <div class="method-card"><span class="method-icon">📋</span> Audit Regs</div>
+                                </div>
+                            </div>
+
+                            <div class="insights-wrapper">
+                                <h3>Hasil Akhir</h3>
+                                <div class="insights-grid">
+                                    <div class="insight-card">
+                                        <strong>🔓 Uji Penetrasi Sederhana</strong>
+                                        <p>Memasukkan data NIK dummy ke database untuk memvalidasi n8n dan AI berhasil menangkap dan melaporkannya.</p>
+                                    </div>
+                                    <div class="insight-card">
+                                        <strong>📊 Survei Willingness-to-Pay</strong>
+                                        <p>Mempresentasikan dashboard kepada startup founders: "Apakah laporan ini berharga sehingga Anda bersedia langganan?".</p>
+                                    </div>
+                                    <div class="insight-card">
+                                        <strong>👁️ Evaluasi UI/UX bagi Non-Teknis</strong>
+                                        <p>Mengamati orang awam mengoperasikan dashboard, menyederhanakan logika interface jika mereka bingung.</p>
+                                    </div>
+                                    <div class="insight-card">
+                                        <strong>📉 Analisis Efisiensi Biaya Operasional</strong>
+                                        <p>Menghitung total biaya Vercel + Turso + n8n untuk memastikan biaya di bawah harga jual.</p>
+                                    </div>
+                                    <div class="insight-card">
+                                        <strong>⚖️ Iterasi Berbasis Regulasi</strong>
+                                        <p>Menguji laporan agar sesuai dengan format panduan dari Kementerian Kominfo/Badan Pengawas PDP.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="comment-section" data-card-id="p2-test">
+                                <h4 class="comment-title">💬 Diskusi Test</h4>
+                                <ul class="comment-list"></ul>
+                                <div class="comment-form">
+                                    <input type="text" class="comment-name" placeholder="Nama Anda (Optional)">
+                                    <div class="comment-row">
+                                        <textarea class="comment-input" placeholder="Tulis komentar..."></textarea>
+                                        <button class="comment-submit">Kirim</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ══════════════ LEAF 6: Test Image (F) / End Cover (B) ══════════════ -->
+                <div class="leaf" id="leaf-6" style="z-index: 1;">
+                    
+                    <!-- Test Image (Front - Right Page of Spread 5) -->
+                    <div class="page front">
+                        <!-- image container -->
+                        <div class="step-image-container" style="background-image: url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=1200');"></div>
+                        <div class="step-image-overlay"></div>
+                        <div class="page-content left-shadow">
+                            <!-- Empty content, image fills the page -->
+                        </div>
+                    </div>
+
+                    <!-- End Cover (Back) -->
+                    <div class="page back end-bg">
+                        <div class="end-cover-body">
+                            <h1>The End.</h1>
+                            <p>Kembali ke <a href="../index.html">Phase 1</a></p>
+                            <p class="end-credits">Coded with 🤍 by Raihan Hanif & Antigravity</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div> <!-- /the-book -->
         </div>
-        <a href="#steps" class="scroll-btn fade-hero delay-5">Explore Steps ↓</a>
-    </header>
-
-    <!-- Design Thinking Steps -->
-    <main id="steps" class="container">
-
-        <!-- Step 1: Empathize -->
-        <section class="step-card step-empathize fade-in" id="empathize">
-            <div class="step-number">01</div>
-            <div class="step-content">
-                <div class="step-header">
-                    <div class="step-icon">🧠</div>
-                    <div class="step-info">
-                        <h2>Empathize</h2>
-                        <p class="step-tagline">Memahami Realitas &amp; Psikologi Pasar UMKM</p>
-                    </div>
-                    <div class="step-status">
-                        <span class="status-badge in-progress">In Progress</span>
-                    </div>
-                </div>
-
-                <div class="book-spread">
-                    <div class="book-page-left">
-                        <div class="step-description">
-                            <h3>Tentang Tahap Ini</h3>
-                            <p>Pada tahap ini, saya melihat dari segi teknis melihat ketakutan dan keterbatasan nyata
-                                pemilik UMKM di Indonesia dengan memahami kebutuhan, perasaan, dan motivasi pengguna akhir
-                                secara langsung.</p>
-                        </div>
-                        <div class="step-methods">
-                            <h3>Metode yang Digunakan</h3>
-                            <div class="methods-grid">
-                                <div class="method-card">
-                                    <span class="method-icon">👁️</span>
-                                    <span class="method-name">Observasi</span>
-                                </div>
-                                <div class="method-card">
-                                    <span class="method-icon">🎤</span>
-                                    <span class="method-name">Wawancara</span>
-                                </div>
-                                <div class="method-card">
-                                    <span class="method-icon">📋</span>
-                                    <span class="method-name">Survei</span>
-                                </div>
-                                <div class="method-card">
-                                    <span class="method-icon">🗺️</span>
-                                    <span class="method-name">Empathy Map</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="book-spine-crease"></div>
-
-                    <div class="book-page-right">
-                        <div class="step-findings">
-                            <h3>Temuan &amp; Insight</h3>
-                            <div class="insights-grid">
-                                <div class="insight-card">
-                                    <span class="insight-icon">📂</span>
-                                    <strong>Fragmentasi Data</strong>
-                                    <p>Data pelanggan UMKM tersebar di WhatsApp, Excel, dan database mentah, aset yang
-                                        berantakan sekaligus lubang keamanan masif.</p>
-                                </div>
-                                <div class="insight-card">
-                                    <span class="insight-icon">💸</span>
-                                    <strong>Persepsi Biaya DPO</strong>
-                                    <p>Jasa Data Protection Officer manusia dianggap kemewahan korporat yang bisa mencapai
-                                        puluhan juta rupiah, menjadi peluang untuk mendisrupsi harga ini dengan teknologi.</p>
-                                </div>
-                                <div class="insight-card">
-                                    <span class="insight-icon">⚠️</span>
-                                    <strong>Ketakutan Sanksi UU PDP</strong>
-                                    <p>Kecemasan terhadap denda 2% dari pendapatan tahunan menjadi <em>buying trigger</em>
-                                        yang kuat untuk produk LexGuard AI.</p>
-                                </div>
-                                <div class="insight-card">
-                                    <span class="insight-icon">🏦</span>
-                                    <strong>Prioritas Operasional</strong>
-                                    <p>Pemilik UMKM lebih takut rekening bank dibekukan karena investigasi kebocoran data
-                                        daripada kebocoran itu sendiri.</p>
-                                </div>
-                                <div class="insight-card">
-                                    <span class="insight-icon">🔐</span>
-                                    <strong>Keterbatasan Literasi Digital</strong>
-                                    <p>Kebanyakan pengguna tidak tahu apa itu enkripsi. Produk harus menjual "status
-                                        kepatuhan", bukan "fitur teknis".</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="comment-section" data-card-id="p2-empathize">
-                            <h4 class="comment-title">💬 Komentar</h4>
-                            <ul class="comment-list"></ul>
-                            <div class="comment-form">
-                                <input type="text" class="comment-name" placeholder="Nama Anda (Optional)">
-                                <div class="comment-row">
-                                    <textarea class="comment-input" placeholder="Tulis komentar..."></textarea>
-                                    <button class="comment-submit">Kirim</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="step-tags">
-                            <span class="tag">User Research</span>
-                            <span class="tag">Empathy Map</span>
-                            <span class="tag">UMKM</span>
-                            <span class="tag">UU PDP</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Step 2: Define -->
-        <section class="step-card step-define fade-in" id="define">
-            <div class="step-number">02</div>
-            <div class="step-content">
-                <div class="step-header">
-                    <div class="step-icon">🎯</div>
-                    <div class="step-info">
-                        <h2>Define</h2>
-                        <p class="step-tagline">Merumuskan Masalah &amp; Peluang RegTech</p>
-                    </div>
-                    <div class="step-status">
-                        <span class="status-badge in-progress">In Progress</span>
-                    </div>
-                </div>
-
-                <div class="book-spread">
-                    <div class="book-page-left">
-                        <div class="step-description">
-                            <h3>Tentang Tahap Ini</h3>
-                            <p>Di sini, saya menyaring semua data empati menjadi strategi produk yang tajam dan fokus dengan
-                                mendefinisikan masalah inti sebagai jurang pemisah antara kewajiban hukum yang ketat dan
-                                kemampuan teknis UMKM yang minim.</p>
-                        </div>
-                        <div class="step-methods">
-                            <h3>Metode yang Digunakan</h3>
-                            <div class="methods-grid">
-                                <div class="method-card">
-                                    <span class="method-icon">📌</span>
-                                    <span class="method-name">Point of View</span>
-                                </div>
-                                <div class="method-card">
-                                    <span class="method-icon">🙋</span>
-                                    <span class="method-name">How Might We</span>
-                                </div>
-                                <div class="method-card">
-                                    <span class="method-icon">🔗</span>
-                                    <span class="method-name">Affinity Diagram</span>
-                                </div>
-                                <div class="method-card">
-                                    <span class="method-icon">🧩</span>
-                                    <span class="method-name">User Persona</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="book-spine-crease"></div>
-
-                    <div class="book-page-right">
-                        <div class="step-findings">
-                            <h3>Problem Statement &amp; Definisi</h3>
-                            <div class="insights-grid">
-                                <div class="insight-card">
-                                    <span class="insight-icon">🌉</span>
-                                    <strong>Compliance Gap</strong>
-                                    <p>Masalah utama: jurang pemisah antara kewajiban hukum pemerintah yang ketat dan
-                                        kemampuan teknis UMKM yang minim.</p>
-                                </div>
-                                <div class="insight-card">
-                                    <span class="insight-icon">🪪</span>
-                                    <strong>Ruang Lingkup PII</strong>
-                                    <p>Fokus perlindungan: NIK, nomor telepon, dan data transaksi dimana tiga elemen yang
-                                        paling sering disalahgunakan dalam kasus pinjol ilegal.</p>
-                                </div>
-                                <div class="insight-card insight-card--highlight">
-                                    <span class="insight-icon">💬</span>
-                                    <strong>HMW Statement</strong>
-                                    <p><em>"Bagaimana cara mengotomatisasi pengawasan data 24/7 tanpa menambah beban gaji
-                                            karyawan atau biaya server yang mahal bagi pemilik bisnis?"</em></p>
-                                </div>
-                                <div class="insight-card">
-                                    <span class="insight-icon">🏷️</span>
-                                    <strong>Value Proposition</strong>
-                                    <p><strong>LexGuard AI</strong> adalah "DPO Digital Mandiri". Bisnisnya adalah kepatuhan
-                                        hukum, teknologinya adalah otomasi siber.</p>
-                                </div>
-                                <div class="insight-card">
-                                    <span class="insight-icon">🛡️</span>
-                                    <strong>Definisi Risiko Kegagalan</strong>
-                                    <p>Risiko terbesar: bot dianggap sebagai beban tambahan bagi server. Produk harus
-                                        "ringan dan non-intrusif".</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="comment-section" data-card-id="p2-define">
-                            <h4 class="comment-title">💬 Komentar</h4>
-                            <ul class="comment-list"></ul>
-                            <div class="comment-form">
-                                <input type="text" class="comment-name" placeholder="Nama Anda (Optional)">
-                                <div class="comment-row">
-                                    <textarea class="comment-input" placeholder="Tulis komentar..."></textarea>
-                                    <button class="comment-submit">Kirim</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="step-tags">
-                            <span class="tag">Problem Statement</span>
-                            <span class="tag">HMW</span>
-                            <span class="tag">Compliance Gap</span>
-                            <span class="tag">LexGuard AI</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Step 3: Ideate -->
-        <section class="step-card step-ideate fade-in" id="ideate">
-            <div class="step-number">03</div>
-            <div class="step-content">
-                <div class="step-header">
-                    <div class="step-icon">💡</div>
-                    <div class="step-info">
-                        <h2>Ideate</h2>
-                        <p class="step-tagline">Arsitektur Solusi &amp; Skalabilitas Bisnis</p>
-                    </div>
-                    <div class="step-status">
-                        <span class="status-badge in-progress">In Progress</span>
-                    </div>
-                </div>
-
-                <div class="book-spread">
-                    <div class="book-page-left">
-                        <div class="step-description">
-                            <h3>Tentang Tahap Ini</h3>
-                            <p>Saya menggunakan kreativitas engineering untuk membangun model bisnis yang menguntungkan dan
-                                aman yang menghasilkan arsitektur solusi yang secara teknis solid dan secara bisnis
-                                skalabel.</p>
-                        </div>
-                        <div class="step-methods">
-                            <h3>Metode yang Digunakan</h3>
-                            <div class="methods-grid">
-                                <div class="method-card">
-                                    <span class="method-icon">🌩️</span>
-                                    <span class="method-name">Brainstorming</span>
-                                </div>
-                                <div class="method-card">
-                                    <span class="method-icon">🧱</span>
-                                    <span class="method-name">SCAMPER</span>
-                                </div>
-                                <div class="method-card">
-                                    <span class="method-icon">🗳️</span>
-                                    <span class="method-name">Crazy 8s</span>
-                                </div>
-                                <div class="method-card">
-                                    <span class="method-icon">🗂️</span>
-                                    <span class="method-name">Mind Map</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="book-spine-crease"></div>
-
-                    <div class="book-page-right">
-                        <div class="step-findings">
-                            <h3>Ide-Ide Terpilih</h3>
-                            <div class="insights-grid">
-                                <div class="insight-card">
-                                    <span class="insight-icon">🦙</span>
-                                    <strong>Local-First AI (Ollama)</strong>
-                                    <p>DeepSeek via Ollama menjamin data tidak keluar dari server klien (kedaulatan data)
-                                        dan menghilangkan ketergantungan pada biaya API pihak ketiga yang fluktuatif.</p>
-                                </div>
-                                <div class="insight-card">
-                                    <span class="insight-icon">⚙️</span>
-                                    <strong>Orchestration via n8n</strong>
-                                    <p>n8n sebagai "mesin audit otomatis" sebagai pengecekan rutin setiap malam, validasi
-                                        enkripsi, dan laporan tanpa campur tangan manusia.</p>
-                                </div>
-                                <div class="insight-card">
-                                    <span class="insight-icon">📄</span>
-                                    <strong>Sistem ROPA Otomatis</strong>
-                                    <p>Menghasilkan dokumen Record of Processing Activities (ROPA) dalam format PDF secara
-                                        otomatis sebagai fitur <i>killer</i> yang sangat dibutuhkan saat audit resmi.</p>
-                                </div>
-                                <div class="insight-card">
-                                    <span class="insight-icon">🔍</span>
-                                    <strong>Deteksi Anomali AI</strong>
-                                    <p>AI mendeteksi ekspor data massal yang mencurigakan yang dapat memberikan nilai tambah
-                                        perlindungan dari pencurian data internal, di luar sekadar kepatuhan.</p>
-                                </div>
-                                <div class="insight-card">
-                                    <span class="insight-icon">💰</span>
-                                    <strong>Model SaaS Tiered</strong>
-                                    <p>Paket gratis untuk pemindaian dasar; paket pro untuk audit mendalam dan notifikasi
-                                        pelanggaran 72 jam secara otomatis.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="comment-section" data-card-id="p2-ideate">
-                            <h4 class="comment-title">💬 Komentar</h4>
-                            <ul class="comment-list"></ul>
-                            <div class="comment-form">
-                                <input type="text" class="comment-name" placeholder="Nama Anda (Optional)">
-                                <div class="comment-row">
-                                    <textarea class="comment-input" placeholder="Tulis komentar..."></textarea>
-                                    <button class="comment-submit">Kirim</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="step-tags">
-                            <span class="tag">Ollama</span>
-                            <span class="tag">n8n</span>
-                            <span class="tag">ROPA</span>
-                            <span class="tag">SaaS</span>
-                            <span class="tag">Local AI</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Step 4: Prototype -->
-        <section class="step-card step-prototype fade-in" id="prototype">
-            <div class="step-number">04</div>
-            <div class="step-content">
-                <div class="step-header">
-                    <div class="step-icon">🔧</div>
-                    <div class="step-info">
-                        <h2>Prototype</h2>
-                        <p class="step-tagline">Membangun MVP yang Tangguh</p>
-                    </div>
-                    <div class="step-status">
-                        <span class="status-badge in-progress">In Progress</span>
-                    </div>
-                </div>
-
-                <div class="book-spread">
-                    <div class="book-page-left">
-                        <div class="step-description">
-                            <h3>Tentang Tahap Ini</h3>
-                            <p>Tahap ini adalah pembuktian bahwa desain saya bisa berjalan secara teknis dan menarik secara
-                                visual guna mewujudkan ide-ide terbaik menjadi MVP nyata yang siap diuji.</p>
-                        </div>
-                        <div class="step-methods">
-                            <h3>Stack yang Dibangun</h3>
-                            <div class="methods-grid">
-                                <div class="method-card">
-                                    <span class="method-icon">▲</span>
-                                    <span class="method-name">Vercel</span>
-                                </div>
-                                <div class="method-card">
-                                    <span class="method-icon">🗄️</span>
-                                    <span class="method-name">Turso</span>
-                                </div>
-                                <div class="method-card">
-                                    <span class="method-icon">⚙️</span>
-                                    <span class="method-name">n8n</span>
-                                </div>
-                                <div class="method-card">
-                                    <span class="method-icon">🦙</span>
-                                    <span class="method-name">Ollama</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="book-spine-crease"></div>
-
-                    <div class="book-page-right">
-                        <div class="step-findings">
-                            <h3>Dokumentasi Prototipe</h3>
-                            <div class="insights-grid">
-                                <div class="insight-card">
-                                    <span class="insight-icon">▲</span>
-                                    <strong>Dashboard di Vercel</strong>
-                                    <p>Tampilan depan di website dengan indikator visual: Hijau = aman/patuh, Merah = ada
-                                        celah risiko.</p>
-                                </div>
-                                <div class="insight-card">
-                                    <span class="insight-icon">🗄️</span>
-                                    <strong>Infrastruktur Turso (Always-On)</strong>
-                                    <p>Database audit dengan <em>permanent uptime</em> dimana log kepatuhan bisa diakses
-                                        kapan saja oleh regulator tanpa kendala cold start.</p>
-                                </div>
-                                <div class="insight-card">
-                                    <span class="insight-icon">🔌</span>
-                                    <strong>Node Integrasi n8n Adaptif</strong>
-                                    <p>Konektor yang bisa dihubungkan ke berbagai database umum (Postgres, MySQL, Google
-                                        Sheets) dalam hitungan menit.</p>
-                                </div>
-                                <div class="insight-card">
-                                    <span class="insight-icon">🤖</span>
-                                    <strong>Integrasi LLM Lokal</strong>
-                                    <p>Simulasi Ollama memproses satu baris data sensitif dan memberikan rekomendasi
-                                        perbaikan secara instan di dashboard.</p>
-                                </div>
-                                <div class="insight-card">
-                                    <span class="insight-icon">🔔</span>
-                                    <strong>Simulasi Notifikasi Pelanggaran</strong>
-                                    <p>Sistem peringatan dini via WhatsApp/Email jika ditemukan data pribadi yang
-                                        "telanjang" (tidak terenkripsi) di server.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="comment-section" data-card-id="p2-prototype">
-                            <h4 class="comment-title">💬 Komentar</h4>
-                            <ul class="comment-list"></ul>
-                            <div class="comment-form">
-                                <input type="text" class="comment-name" placeholder="Nama Anda (Optional)">
-                                <div class="comment-row">
-                                    <textarea class="comment-input" placeholder="Tulis komentar..."></textarea>
-                                    <button class="comment-submit">Kirim</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="step-tags">
-                            <span class="tag">Vercel</span>
-                            <span class="tag">Turso</span>
-                            <span class="tag">MVP</span>
-                            <span class="tag">LLM Lokal</span>
-                            <span class="tag">n8n</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Step 5: Test -->
-        <section class="step-card step-test fade-in" id="test">
-            <div class="step-number">05</div>
-            <div class="step-content">
-                <div class="step-header">
-                    <div class="step-icon">🧪</div>
-                    <div class="step-info">
-                        <h2>Test</h2>
-                        <p class="step-tagline">Validasi Teknis &amp; Penerimaan Pasar</p>
-                    </div>
-                    <div class="step-status">
-                        <span class="status-badge in-progress">In Progress</span>
-                    </div>
-                </div>
-
-                <div class="book-spread">
-                    <div class="book-page-left">
-                        <div class="step-description">
-                            <h3>Tentang Tahap Ini</h3>
-                            <p>Saya membenturkan produk ke dunia nyata untuk memastikan ia layak secara ekonomi dan
-                                fungsional secara teknis dengan memvalidasi setiap asumsi desain dengan data nyata.</p>
-                        </div>
-                        <div class="step-methods">
-                            <h3>Metode Pengujian</h3>
-                            <div class="methods-grid">
-                                <div class="method-card">
-                                    <span class="method-icon">🔓</span>
-                                    <span class="method-name">Pen Testing</span>
-                                </div>
-                                <div class="method-card">
-                                    <span class="method-icon">📊</span>
-                                    <span class="method-name">Survei WTP</span>
-                                </div>
-                                <div class="method-card">
-                                    <span class="method-icon">👁️</span>
-                                    <span class="method-name">UI/UX Eval</span>
-                                </div>
-                                <div class="method-card">
-                                    <span class="method-icon">📋</span>
-                                    <span class="method-name">Regulasi Audit</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="book-spine-crease"></div>
-
-                    <div class="book-page-right">
-                        <div class="step-findings">
-                            <h3>Hasil Pengujian</h3>
-                            <div class="insights-grid">
-                                <div class="insight-card">
-                                    <span class="insight-icon">🔓</span>
-                                    <strong>Uji Penetrasi Sederhana</strong>
-                                    <p>Memasukkan data NIK dummy ke database untuk validasi apakah n8n dan AI berhasil
-                                        menangkap dan melaporkannya secara teknis.</p>
-                                </div>
-                                <div class="insight-card">
-                                    <span class="insight-icon">💳</span>
-                                    <strong>Survei Willingness-to-Pay</strong>
-                                    <p>Presentasi dashboard kepada beberapa pemilik startup di Bogor: "Apakah laporan ini
-                                        cukup berharga untuk membayar biaya langganan bulanan?"</p>
-                                </div>
-                                <div class="insight-card">
-                                    <span class="insight-icon">🖱️</span>
-                                    <strong>Evaluasi UI/UX Non-Teknis</strong>
-                                    <p>Mengamati apakah orang awam bisa mengoperasikan dashboard. Jika bingung, logika
-                                        interface harus disederhanakan kembali.</p>
-                                </div>
-                                <div class="insight-card">
-                                    <span class="insight-icon">🧮</span>
-                                    <strong>Analisis Efisiensi Biaya Operasional</strong>
-                                    <p>Menghitung total biaya Vercel + Turso + Self-hosted n8n untuk memastikan biaya
-                                        produksi jauh di bawah harga jual ke pelanggan.</p>
-                                </div>
-                                <div class="insight-card">
-                                    <span class="insight-icon">📜</span>
-                                    <strong>Iterasi Berbasis Regulasi</strong>
-                                    <p>Memvalidasi apakah laporan sistem sudah sesuai dengan format yang diminta oleh draft
-                                        panduan Kementerian Kominfo/Badan Pengawas PDP.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="comment-section" data-card-id="p2-test">
-                            <h4 class="comment-title">💬 Komentar</h4>
-                            <ul class="comment-list"></ul>
-                            <div class="comment-form">
-                                <input type="text" class="comment-name" placeholder="Nama Anda (Optional)">
-                                <div class="comment-row">
-                                    <textarea class="comment-input" placeholder="Tulis komentar..."></textarea>
-                                    <button class="comment-submit">Kirim</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="step-tags">
-                            <span class="tag">Pen Testing</span>
-                            <span class="tag">Willingness-to-Pay</span>
-                            <span class="tag">UX Research</span>
-                            <span class="tag">Kominfo</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        
+        <button id="next-btn" class="nav-btn" aria-label="Next Page">
+            Next <span class="nav-arrow">→</span>
+        </button>
 
     </main>
 
-    <footer>
-        <p>Innovation in Product and Process Design — Phase 2 &copy; 2026</p>
-        <p class="author">Dibuat oleh <strong>Raihan Hanif Firdaus</strong> &mdash; NPM: 023124157</p>
-    </footer>
-
     <script src="../script.js"></script>
     <script>
-        (function () {
-            const io = new IntersectionObserver((entries) => {
-                entries.forEach(e => {
-                    if (e.isIntersecting) {
-                        e.target.classList.add('visible');
-                        io.unobserve(e.target);
-                    }
-                });
-            }, { threshold: 0.08 });
+        const leaves = document.querySelectorAll('.leaf');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
 
-            document.querySelectorAll('.fade-hero').forEach((el, i) => {
-                setTimeout(() => el.classList.add('visible'), 200 + i * 120);
+        let currentPage = 0; 
+        const maxPage = leaves.length;
+
+        function setZIndexes() {
+            leaves.forEach((leaf, idx) => {
+                if (idx < currentPage) {
+                    leaf.style.zIndex = idx + 1; // Ascending left stack
+                } else {
+                    leaf.style.zIndex = maxPage - idx; // Descending right stack
+                }
             });
+        }
 
-            document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
-        })();
+        function goNext() {
+            if (currentPage < maxPage) {
+                const leaf = leaves[currentPage];
+                leaf.classList.add('flipped');
+                currentPage++;
+                updateState();
+            }
+        }
+
+        function goPrev() {
+            if (currentPage > 0) {
+                currentPage--;
+                const leaf = leaves[currentPage];
+                leaf.classList.remove('flipped');
+                updateState();
+            }
+        }
+
+        function updateState() {
+            // Apply centering logic:
+            // - Cover (closed): centered natively via flex, transform 0
+            // - Book open (spread): spine centered, transform 50%
+            // - Back cover (closed left): transform 100%
+            const wrapper = document.querySelector('.perspective-wrapper');
+            if (currentPage === 0) {
+                wrapper.style.transform = 'translateX(0)';
+            } else if (currentPage === maxPage) {
+                wrapper.style.transform = 'translateX(100%)';
+            } else {
+                wrapper.style.transform = 'translateX(50%)';
+            }
+
+            // Adjust z-index shortly after the flip to prevent front-clipping
+            setTimeout(setZIndexes, 350); 
+
+            // Disable buttons logic
+            prevBtn.disabled = currentPage === 0;
+            prevBtn.style.opacity = prevBtn.disabled ? '0.2' : '';
+            prevBtn.style.cursor = prevBtn.disabled ? 'default' : '';
+
+            nextBtn.disabled = currentPage === maxPage;
+            nextBtn.style.opacity = nextBtn.disabled ? '0.2' : '';
+            nextBtn.style.cursor = nextBtn.disabled ? 'default' : '';
+        }
+
+        prevBtn.addEventListener('click', goPrev);
+        nextBtn.addEventListener('click', goNext);
+
+        // Click detection logic for page turning on pages directly
+        document.querySelectorAll('.page.front').forEach((frontPage, i) => {
+            frontPage.addEventListener('click', (e) => {
+                if(e.target.tagName.toLowerCase() === 'input' || 
+                   e.target.tagName.toLowerCase() === 'textarea' || 
+                   e.target.tagName.toLowerCase() === 'button' ||
+                   e.target.closest('.comment-delete')) return; 
+                
+                if (currentPage === i) goNext();
+            });
+        });
+
+        document.querySelectorAll('.page.back').forEach((backPage, i) => {
+            backPage.addEventListener('click', (e) => {
+                if(e.target.tagName.toLowerCase() === 'input' || 
+                   e.target.tagName.toLowerCase() === 'textarea' || 
+                   e.target.tagName.toLowerCase() === 'button' ||
+                   e.target.closest('.comment-delete')) return; 
+
+                if (currentPage === i + 1) goPrev();
+            });
+        });
+
+        // Initialize state
+        setZIndexes();
+        updateState();
+
+        // Staggered perspective reveal
+        setTimeout(() => {
+            document.querySelector('.perspective-wrapper').classList.add('visible');
+        }, 300);
     </script>
 </body>
-
 </html>
