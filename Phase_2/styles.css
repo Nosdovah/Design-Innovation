@@ -648,36 +648,87 @@ h3 {
 .fade-hero { opacity: 0; transition: opacity 0.9s ease; }
 .fade-hero.visible { opacity: 1; }
 
-@media (max-width: 1100px) {
-    .book {
-        width: 60vw;
-    }
-}
-@media (max-width: 800px) {
-    .book-container {
-        flex-direction: column;
-        padding-bottom: 4rem;
-        padding-top: 5rem;
-    }
-    .book {
-        width: 90vw;
-        min-width: 300px;
-    }
-    .methods-grid { grid-template-columns: 1fr; }
-    .page-content { padding: 2.5rem 1.5rem; }
-    .cover-body { padding: 3rem 2rem; }
+@media (max-width: 900px) {
+    /* 1. Remove Next/Prev buttons as it's now a vertical scroll */
     .nav-btn {
-        top: auto;
-        bottom: 2rem;
-        transform: none;
+        display: none !important;
     }
-    #prev-btn { left: 5vw; }
-    #next-btn { right: 5vw; }
-    #prev-btn:hover:not(:disabled) { transform: translateY(-2px); }
-    #next-btn:hover:not(:disabled) { transform: translateY(-2px); }
     
-    /* On mobile, open spreads become too wide to center with translateX. Disable lateral shift. */
+    /* 2. Unbind container centering */
+    .book-container {
+        display: block;
+        padding: 5rem 5% 4rem;
+    }
+    
+    /* 3. Kill perspective engine completely */
     .perspective-wrapper {
-        transform: translateX(0) !important;
+        perspective: none !important;
+        transform: none !important;
+        width: 100% !important;
+        height: auto !important;
+        display: block;
+    }
+    
+    /* 4. Book becomes a flexible column */
+    .book {
+        width: 100% !important;
+        height: auto !important;
+        position: static;
+        transform-style: flat;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        box-shadow: none !important;
+    }
+    
+    /* 5. Leaves no longer pivot, they just stack */
+    .leaf {
+        position: relative;
+        width: 100%;
+        height: auto;
+        transform: none !important; /* Stop JS flipped rotation */
+        transform-style: flat;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    /* 6. Front and back pages become standard vertical blocks */
+    .page {
+        position: relative;
+        width: 100%;
+        height: auto;
+        min-height: 40vh; /* Fallback for image pages so they don't collapse */
+        transform: none !important; /* No mirror rotation */
+        backface-visibility: visible;
+        border-radius: 16px !important; /* Round all corners nicely */
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) !important;
+    }
+    
+    /* 7. Allow content pages to expand and drop fake binding creases */
+    .page-content {
+        position: relative;
+        width: 100%;
+        height: auto;
+        padding: 2.5rem 1.5rem;
+        overflow-y: visible; /* Let it grow naturally */
+    }
+    
+    .left-shadow::before, .right-shadow::after, .cover-binding {
+        display: none !important; /* Remove physical book shadows */
+    }
+    
+    /* 8. Text layout adjustments */
+    .methods-grid { 
+        grid-template-columns: 1fr; 
+    }
+    
+    .cover-body { 
+        padding: 3rem 1.5rem; 
+    }
+    
+    .insight-card {
+        padding: 1.25rem;
     }
 }
