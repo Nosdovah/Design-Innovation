@@ -11,6 +11,7 @@
     --proton: #6d4aff;
     --signal: #2c6bed;
     --malwarebytes: #0066cc;
+    --auto-compliance: #ff007f;
 }
 
 * {
@@ -307,6 +308,10 @@ h3,
     background: var(--malwarebytes);
 }
 
+.auto-compliance::before {
+    background: var(--auto-compliance);
+}
+
 .card:hover {
     transform: translateY(-10px);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
@@ -345,6 +350,10 @@ h3,
 
 .malwarebytes .brand-info h2 {
     color: var(--malwarebytes);
+}
+
+.auto-compliance .brand-info h2 {
+    color: var(--auto-compliance);
 }
 
 .ig-link {
