@@ -286,48 +286,72 @@ h1, h2, h3, .logo, .step-number {
     position: relative;
     overflow: hidden;
     display: grid;
-    grid-template-columns: 80px 1fr;
-    gap: 2.5rem;
+    grid-template-columns: 1fr;
+    gap: 0;
     align-items: start;
+    padding-left: 3.5rem;
 }
 
 .step-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    box-shadow:
+        -14px 0 0 rgba(0, 0, 0, 0.45),
+        0 30px 60px rgba(0, 0, 0, 0.45),
+        0 10px 30px rgba(0, 0, 0, 0.3);
     border-color: rgba(255, 255, 255, 0.13);
 }
 
-/* Left accent bar */
+/* Book binding strip on the left */
 .step-card::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
-    width: 6px;
+    width: 54px;
     height: 100%;
     border-radius: 24px 0 0 24px;
-    opacity: 0.8;
+    opacity: 0.06;
+    background: rgba(255, 255, 255, 1);
 }
 
-.step-empathize::before { background: var(--empathize); }
-.step-define::before    { background: var(--define); }
-.step-ideate::before    { background: var(--ideate); }
-.step-prototype::before { background: var(--prototype); }
-.step-test::before      { background: var(--test); }
+/* Coloured accent line on the very left edge */
+.step-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 100%;
+    border-radius: 24px 0 0 24px;
+    opacity: 0.85;
+}
 
-/* Step Number */
+.step-empathize::after { background: var(--empathize); }
+.step-define::after    { background: var(--define); }
+.step-ideate::after    { background: var(--ideate); }
+.step-prototype::after { background: var(--prototype); }
+.step-test::after      { background: var(--test); }
+
+/* Step Number — vertical chapter indicator on binding */
 .step-number {
-    font-size: 4rem;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    width: 54px;
+    text-align: center;
+    font-size: 0.65rem;
     font-weight: 800;
-    line-height: 1;
-    opacity: 0.12;
-    letter-spacing: -2px;
-    align-self: start;
-    padding-top: 0.15rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    opacity: 0.45;
+    user-select: none;
     transition: opacity 0.3s ease;
+    padding: 0;
 }
 
-.step-card:hover .step-number { opacity: 0.22; }
+.step-card:hover .step-number { opacity: 0.75; }
 
 .step-empathize .step-number { color: var(--empathize); }
 .step-define    .step-number { color: var(--define); }
@@ -403,16 +427,56 @@ h1, h2, h3, .logo, .step-number {
     border: 1px solid rgba(0, 210, 180, 0.35);
 }
 
-/* ─── Step Body ─── */
-.step-body {
+/* ─── Book Spread Layout ─── */
+.book-spread {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.75rem;
-    margin-bottom: 1.75rem;
+    grid-template-columns: 1fr 28px 1fr;
+    gap: 0;
+    align-items: start;
+    margin-top: 0.25rem;
 }
 
-.step-description {
-    grid-column: 1 / -1;
+.book-spine-crease {
+    align-self: stretch;
+    background: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0.28) 0%,
+        rgba(0, 0, 0, 0.08) 40%,
+        rgba(255, 255, 255, 0.04) 50%,
+        rgba(0, 0, 0, 0.08) 60%,
+        rgba(0, 0, 0, 0.28) 100%
+    );
+    box-shadow:
+        inset 6px 0 12px rgba(0, 0, 0, 0.25),
+        inset -6px 0 12px rgba(0, 0, 0, 0.25);
+    border-radius: 2px;
+    margin: -0.25rem 0;
+    min-height: 100%;
+}
+
+.book-page-left,
+.book-page-right {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 0.25rem 1.75rem;
+}
+
+.book-page-left {
+    padding-left: 0;
+    padding-right: 1.75rem;
+}
+
+.book-page-right {
+    padding-left: 1.75rem;
+    padding-right: 0;
+}
+
+/* Legacy: keep step-body for backward compat if needed */
+.step-body {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
 }
 
 .step-description h3,
@@ -558,12 +622,14 @@ h1, h2, h3, .logo, .step-number {
     border-color: #a78bfa;
 }
 
-/* Tags */
+/* Tags — with gap above to separate from comment form */
 .step-tags {
     display: flex;
     gap: 0.75rem;
     flex-wrap: wrap;
-    margin-top: 2rem;
+    margin-top: 1.25rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .tag {
@@ -633,12 +699,10 @@ footer .author {
     .nav-links { gap: 0.5rem; }
 }
 
-/* ═══════════════════════════════════════════════════
-   Fade-In Scroll Animation
-═══════════════════════════════════════════════════ */
+/* Generic fade-in (non-card elements) */
 .fade-in {
     opacity: 0;
-    transform: translateY(36px);
+    transform: translateY(28px);
     transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
                 transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -646,6 +710,20 @@ footer .author {
 .fade-in.visible {
     opacity: 1;
     transform: translateY(0);
+}
+
+/* Book-opening animation for step cards */
+.step-card.fade-in {
+    opacity: 0;
+    transform: perspective(1100px) rotateY(-18deg) translateX(-48px) scale(0.97);
+    transform-origin: left center;
+    transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.step-card.fade-in.visible {
+    opacity: 1;
+    transform: perspective(1100px) rotateY(0deg) translateX(0) scale(1);
 }
 
 .fade-hero {
@@ -668,7 +746,6 @@ footer .author {
 ═══════════════════════════════════════════════════ */
 .comment-section {
     margin-top: 2rem;
-    margin-bottom: 2rem;
     padding-top: 1.5rem;
     border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
